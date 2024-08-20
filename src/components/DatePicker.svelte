@@ -1,10 +1,10 @@
 <script>
-  import Popover from './Popover.svelte'
-  import { dayjs } from './lib/date-utils'
-  import { contextKey, setup } from './lib/context'
-  import { createEventDispatcher, setContext, getContext } from 'svelte'
+  import { createEventDispatcher, getContext, setContext } from 'svelte'
   import { CalendarStyle } from '../calendar-style.js'
+  import { contextKey, setup } from './lib/context'
+  import { dayjs } from './lib/date-utils'
   import { createViewContext } from './lib/view-context.js'
+  import Popover from './Popover.svelte'
   import Toolbar from './Toolbar.svelte'
   import View from './view/View.svelte'
 
@@ -115,6 +115,31 @@
       config.isRangePicker ? setRangeValue() : setDateValue()
       dispatch('change')
     }
+  }
+
+  /**
+   * Allow external sources to update dates by binding to selected prop
+   * and updating with JS Date objects
+  */
+  $: {
+    if (config.isRangePicker && selected) {
+      if (selected[0] instanceof Date) {
+        selectedStartDate.set(dayjs(selected[0]))
+      }
+      if (selected[1] instanceof Date) {
+        selectedEndDate.set(dayjs(selected[1]))
+      }
+    }
+  }
+
+  /**
+   * Allow external sources to react to internal selections via event forwarding
+  */
+  $: {
+    if ($selectedStartDate) dispatch('updateStart', $selectedStartDate.toDate())
+  }
+  $: {
+    if ($selectedEndDate) dispatch('updateEnd', $selectedEndDate.toDate())
   }
 </script>
 
