@@ -3,6 +3,7 @@
   import { CalendarStyle } from '../calendar-style'
   import { contextKey, setup } from './lib/context'
   import { dayjs } from './lib/date-utils'
+  import { ensureFutureMonth } from './lib/date-manipulation'
   import { createViewContext } from './lib/view-context'
   import Popover from './Popover.svelte'
   import Toolbar from './Toolbar.svelte'
@@ -49,6 +50,8 @@
   const {
     selectedStartDate,
     selectedEndDate,
+    leftCalendarDate,
+    rightCalendarDate,
     isOpen,
     isClosing,
     highlighted,
@@ -120,16 +123,25 @@
 
   /**
    * Allow external sources to update dates by binding to selected prop
-   * and updating with JS Date objects
+   * and updating with JS Date objects. Also update the calendar view
+   * to show the selected dates.
   */
   $: {
     if (config.isRangePicker && selected) {
       if (selected[0] instanceof Date) {
-        selectedStartDate.set(dayjs(selected[0]))
+        const startDate = dayjs(selected[0])
+        selectedStartDate.set(startDate)
+        leftCalendarDate.set(startDate.startOf('month'))
       }
       if (selected[1] instanceof Date) {
-        selectedEndDate.set(dayjs(selected[1]))
+        const endDate = dayjs(selected[1])
+        selectedEndDate.set(endDate)
+        rightCalendarDate.set(ensureFutureMonth($leftCalendarDate, endDate).startOf('month'))
       }
+    } else if (selected instanceof Date) {
+      const date = dayjs(selected)
+      selectedStartDate.set(date)
+      leftCalendarDate.set(date.startOf('month'))
     }
   }
 
