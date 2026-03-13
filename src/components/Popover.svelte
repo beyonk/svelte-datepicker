@@ -66,6 +66,7 @@
 
 <svelte:window bind:innerWidth={w} />
 <div class="sc-popover" bind:this={popover}>
+  <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
   <div class="trigger" on:click={doOpen} bind:this={triggerContainer}>
     <slot name="trigger">
     </slot>

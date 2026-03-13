@@ -3,6 +3,13 @@
   "svelte": "src/main.js",
   "version": "12.0.1",
   "license": "MIT",
+  "exports": {
+    ".": {
+      "svelte": "./src/main.js",
+      "default": "./src/main.js"
+    },
+    "./*": "./*"
+  },
   "scripts": {
     "dev": "snowpack dev",
     "build": "snowpack build",
@@ -13,7 +20,7 @@
   "dependencies": {
     "dayjs": "^1.10.7",
     "es6-object-assign": "^1.1.0",
-    "svelte": "^3.24.0"
+    "svelte": "^3.24.0 || ^4.0.0"
   },
   "devDependencies": {
     "@beyonk/eslint-config": "^4.2.0",

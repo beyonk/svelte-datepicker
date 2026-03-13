@@ -23,7 +23,7 @@
       let:selectedEnd
     >
       <slot {selectedStart} {selectedEnd} />
-      <div slot="beforeContents">
+      <div slot="beforeContents" let:selectedStart let:selectedEnd>
        <slot name="beforeContents" {selectedStart} {selectedEnd} />
       </div>
     </DatePickerInner>
