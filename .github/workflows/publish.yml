@@ -2,68 +2,25 @@ name: publish
 
 on:
   push:
-    branches:
-      - '*'
     tags:
       - 'v*'
-  pull_request:
-    branches:
-      - '*'
-
-env:
-  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        with:
-          version: 8
-          run_install: true
-      - run: npm run lint
-      - run: npm run test:unit
-  
-  docs:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        with:
-          version: 8
-          run_install: true
-      - name: Deploy docs
-        run: |
-          pnpm build
-          cd build
-          npx vercel -A ../deployment-config/vercel.json --prod --token ${{ secrets.VERCEL_TOKEN }}
-        env:
-          NOW_PROJECT_ID: 'prj_1kSWQ4j4fKqpjLgCiqAydPBQPlmB'
-          NOW_ORG_ID: 'team_ebDKq5BBTF4figtiNJc3VRH6'
-
   publish-npm:
     if: startsWith(github.ref, 'refs/tags/v')
-    needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        with:
-          version: 8
-          run_install: true
-      - name: Set publishing config
-        run: pnpm config set '//registry.npmjs.org/:_authToken' "${NODE_AUTH_TOKEN}"
-      - run: pnpm publish --no-git-checks
+      - name: checkout
+        uses: actions/checkout@v5
+
+      - name: set up node and pnpm
+        run: |
+          corepack enable
+          pnpm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
+          pnpm config set '//npm.pkg.github.com/:_authToken' "${{ secrets.GITHUB_TOKEN }}"
+          pnpm i
+
+      - name: publish
+        run: |
+          pnpm publish --registry https://npm.pkg.github.com --no-git-checks
+          pnpm publish --registry https://registry.npmjs.org --no-git-checks
