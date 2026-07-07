@@ -31,5 +31,17 @@
   },
   "eslintConfig": {
     "extends": "@beyonk/eslint-config/svelte"
+  },
+  "packageManager": "pnpm@11.0.0",
+  "repository": "https://github.com/beyonk/svelte-datepicker.git",
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "24.14.1",
+      "onFail": "error"
+    }
+  },
+  "engines": {
+    "node": "24.14.1"
   }
 }
