@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+dependencies:
+  dayjs:
+    specifier: ^1.11.9
+    version: 1.11.9
+
 devDependencies:
   '@beyonk/eslint-config':
     specifier: ^4.2.0
@@ -26,9 +31,6 @@ devDependencies:
   '@web/test-runner':
     specifier: ^0.9.7
     version: 0.9.7(rollup@2.79.1)
-  dayjs:
-    specifier: ^1.11.9
-    version: 1.11.9
   eslint:
     specifier: ^7.14.0
     version: 7.14.0
@@ -3120,7 +3122,7 @@ packages:
 
   /dayjs@1.11.9:
     resolution: {integrity: sha512-QvzAURSbQ0pKdIye2txOzNaHmxtUBXerpY0FJsFXUMKbIZeFm5ht1LS/jFsrncjnmtv8HsG0W2g6c0zUjZWmpA==}
-    dev: true
+    dev: false
 
   /debounce@1.2.1:
     resolution: {integrity: sha512-XRRe6Glud4rd/ZGQfiV1ruXSfbvfJedlV9Y6zOlP+2K04vBYiJEte6stfFkCP03aMnY5tsipamumUjL14fofug==}
