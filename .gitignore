@@ -1,3 +1,5 @@
-build
-web_modules
+.DS_Store
 node_modules
+/build
+/.svelte-kit
+/dist

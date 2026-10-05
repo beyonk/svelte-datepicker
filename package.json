@@ -1,37 +1,63 @@
 {
   "name": "@beyonk/svelte-datepicker",
-  "svelte": "src/main.js",
   "version": "13.0.5",
   "license": "MIT",
   "scripts": {
-    "dev": "snowpack dev",
-    "build": "snowpack build",
+    "dev": "vite dev",
+    "build": "vite build",
+    "package": "svelte-package",
+    "preview": "vite preview",
     "lint": "eslint .",
-    "test": "web-test-runner \"src/**/*.test.js\"",
-    "test:unit": "uvu -r esm"
+    "test": "vitest run"
   },
-  "devDependencies": {
-    "@beyonk/eslint-config": "^4.2.0",
-    "@beyonk/snowpack-rollup-plugin": "0.0.1",
-    "@snowpack/plugin-dotenv": "^2.0.5",
-    "@snowpack/plugin-svelte": "^3.5.1",
-    "@snowpack/web-test-runner-plugin": "^0.2.1",
-    "@testing-library/svelte": "^3.0.0",
-    "@web/test-runner": "^0.9.7",
-    "eslint": "^7.14.0",
-    "eslint-plugin-svelte3": "^2.7.3",
-    "esm": "^3.2.25",
-    "mockdate": "^3.0.2",
-    "sinon": "^9.2.4",
-    "snowpack": "^3.0.10",
-    "svelte": "^3.59.2",
-    "tinro": "^0.3.7",
-    "uvu": "^0.5.1"
+  "packageManager": "pnpm@12.9.1",
+  "repository": "https://github.com/beyonk/svelte-datepicker.git",
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "24",
+      "onFail": "download"
+    }
   },
-  "eslintConfig": {
-    "extends": "@beyonk/eslint-config/svelte"
+  "engines": {
+    "node": "24"
   },
   "dependencies": {
     "dayjs": "^1.11.9"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "svelte": "^5.0.0"
+  },
+  "svelte": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.spec.*"
+  ],
+  "imports": {
+    "#lib": "./src/lib/index.js",
+    "#lib/*": "./src/lib/*"
+  },
+  "devDependencies": {
+    "@beyonk/eslint-config": "^10.1.1",
+    "@sveltejs/adapter-auto": "^8.0.0",
+    "@sveltejs/kit": "^3.0.0",
+    "@sveltejs/package": "^3.0.0",
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
+    "eslint": "^9.39.5",
+    "mockdate": "^3.0.5",
+    "pkg-pr-new": "^0.0.88",
+    "svelte": "^5.57.1",
+    "svelte2tsx": "^0.7.61",
+    "typescript": "^6.0.3",
+    "vite": "^8.3.2",
+    "vitest": "^5.0.3"
   }
 }
