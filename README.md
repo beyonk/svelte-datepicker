@@ -8,7 +8,7 @@
 
 ## Svelte Datepicker
 
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com) [![svelte-v3](https://img.shields.io/badge/svelte-v3-blueviolet.svg)](https://svelte.dev) ![publish](https://github.com/beyonk-adventures/svelte-datepicker/workflows/publish/badge.svg)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com) [![svelte-v5](https://img.shields.io/badge/svelte-v5-blueviolet.svg)](https://svelte.dev) ![publish](https://github.com/beyonk/svelte-datepicker/workflows/publish/badge.svg)
 
 This is a near total rewrite of the excellent [Svelte Calendar](https://github.com/6eDesign/svelte-calendar). It provides:
 
@@ -30,19 +30,15 @@ Roadmap:
 
 ## Svelte Kit Support
 
-Due to the way dayjs is packaged, the following configuration is required to get this working with SvelteKit:
+Due to the way dayjs is packaged, the following configuration is required in `vite.config.js` to get this working with SvelteKit:
 
 ```js
-const config = {
-  kit: {
-    target: "#svelte",
-    vite: {
-      ssr: {
-        noExternal: [ 'dayjs' ]
-      }
-    }
+export default defineConfig({
+  plugins: [ sveltekit() ],
+  ssr: {
+    noExternal: [ 'dayjs' ]
   }
-}
+})
 ```
 
 ## Usage
@@ -54,8 +50,8 @@ const config = {
 
 ### Tests
 
-Tests written in [uvu](https://github.com/lukeed/uvu)
+Tests written in [vitest](https://vitest.dev)
 
 ```bash
-npm run test
+pnpm test
 ```

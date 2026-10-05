@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       - name: set up node and pnpm
         run: |
@@ -19,6 +19,9 @@ jobs:
           pnpm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
           pnpm config set '//npm.pkg.github.com/:_authToken' "${{ secrets.GITHUB_TOKEN }}"
           pnpm i
+
+      - name: package
+        run: pnpm package
 
       - name: publish
         run: |
