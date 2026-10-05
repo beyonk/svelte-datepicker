@@ -85,6 +85,7 @@ function increment (direction, entity) {
         <button 
           class="month-selector--month" 
           class:selected={index === $displayedDate.month()}
+          type="button"
           disabled={!monthDefinition.selectable}
           on:click={e => monthSelected(e, { monthDefinition, index })}
         >
