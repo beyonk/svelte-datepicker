@@ -21,7 +21,7 @@
   <div class="month-dates">
     <div class="legend">
       <div class="month-week">
-        {#each dayjs.weekdaysShort() as day}
+        {#each dayjs.weekdaysShort(true) as day}
           <span>{day}</span>
         {/each}
       </div>
